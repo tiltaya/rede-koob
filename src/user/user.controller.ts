@@ -9,7 +9,11 @@ export class UserController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    try {
+      return this.userService.create(createUserDto);
+    } catch (error) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST)
+    }
   }
 
   @Get()
@@ -43,6 +47,7 @@ export class UserController {
   async remove(@Param('id') id: string) {
     try {
       return await this.userService.remove(+id);
+      
     } catch (error) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND)
     }
