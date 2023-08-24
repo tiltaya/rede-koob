@@ -23,14 +23,25 @@ export class UserService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.prisma.users.findUnique({
+      where: {id} 
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    return this.prisma.users.update({
+      data: {
+        name: updateUserDto.name,
+        email: updateUserDto.email,
+        birthdate: updateUserDto.birthdate,
+        bio: updateUserDto.bio
+      }, where: {id}
+    })
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.prisma.users.delete({
+      where: {id}
+    })
   }
 }
