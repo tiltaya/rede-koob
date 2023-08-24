@@ -23,13 +23,13 @@ export class UserController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const user = await this.userService.findOne(+id);
+    const findUserById = await this.userService.findOne(+id);
 
-    if (!user) {
+    if (!findUserById) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND)
     }
 
-    return user
+    return findUserById
   }
 
   @Put(':id')
